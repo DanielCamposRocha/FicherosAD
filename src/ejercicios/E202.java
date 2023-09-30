@@ -3,33 +3,24 @@ package ejercicios;
 import utilidades.Utilidades;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class E202 {
     public static void main(String[] args) {
-        directorios();
+        listadoRecursivo(Utilidades.pedirString("Ruta a listar"));
     }
 
-    private static void directorios() {
-        File f=new File(Utilidades.pedirString("Introduce la ruta del directorio"));
-        File [] lista=f.listFiles();
-        for (File archivo:lista) {
-            if(!archivo.isDirectory())System.out.println(archivo);
-                if(recurrenteDirectorio(archivo)!=null) {
-                    File[] listados = archivo.listFiles();
-                    for (File archivados : listados) {
-                        System.out.println(archivados);
-
-                    }
-
+    private static void listadoRecursivo(String ruta_a_listar) {
+        LinkedList<File> cola=new LinkedList<>();
+        File f= new File(ruta_a_listar);
+        cola.addLast(f);
+        while (!cola.isEmpty()) {
+            File[] lista = cola.removeFirst().listFiles();
+            if(lista != null)
+                for (File archivo : lista) {
+                    System.out.println(archivo);
+                    if(archivo.isDirectory())cola.addLast(archivo);
                 }
         }
-
-    }
-
-    public static File recurrenteDirectorio(File archivo){
-       if(archivo.isDirectory())System.out.println(archivo);
-       if(archivo.isDirectory()) return archivo;
-       return null;
     }
 }

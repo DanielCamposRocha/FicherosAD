@@ -1,9 +1,8 @@
 package ejercicios;
 
-import utilidades.Utilidades;
-
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 /* void crearFichero(String fichero): crea el fichero indicado
 
@@ -18,7 +17,7 @@ public class ManejoFicheros {
     public static void crearFichero(String fichero) {
         File f=new File(fichero);
         try {
-            f.createNewFile();
+            if(f.createNewFile()) System.out.println("Archivo creado correctamente");
         }catch (IOException e){
             System.out.println("Mieeeeerda");
         }
@@ -37,35 +36,32 @@ public class ManejoFicheros {
         else System.out.println("La has liado parda");
     }
     public  static void borrarDirectorio(String ruta){
+        LinkedList<File> cola=new LinkedList<>();
         File f=new File(ruta);
-        String [] lista=f.list();
-        for (String archivo:lista) {
-            File otro=new File(archivo);
-            if(otro.isFile())otro.delete();
-            if(!otro.isFile()){
-                String [] lista2=otro.list();
-                for (String fic:lista2) {
-                    File otromas=new File(fic);
-                    otromas.delete();
+        cola.addLast(f);
+        while (!cola.isEmpty()) {
+            File f2=cola.removeFirst();
+            File[] lista = f2.listFiles();
+            if(lista != null)
+                for (File archivo : lista) {
+                    if(!archivo.delete()) System.out.println(archivo+" no ha podido ser borrado");
+                    if(archivo.isDirectory())cola.addLast(archivo);
                 }
-            }
-
+            if(!f2.delete()) System.out.println(f2+" no ha podido ser borrado");
         }
-        borrarFichero(ruta);
+        System.out.println("Eliminación completada");
     }
     public static void listarDirectorio(String ruta){
-        File f=new File(ruta);
-        String [] lista=f.list();
-        for (String archivo:lista) {
-            File otro=new File(archivo);
-            if(otro.isFile())System.out.println(archivo);
-            if(!otro.isFile()){
-                String [] lista2=otro.list();
-                for (String fic:lista2) {
-                    System.out.println(otro.getPath()+File.separator+fic);
+        LinkedList<File> cola=new LinkedList<>();
+        File f= new File(ruta);
+        cola.addLast(f);
+        while (!cola.isEmpty()) {
+            File[] lista = cola.removeFirst().listFiles();
+            if(lista != null)
+                for (File archivo : lista) {
+                    System.out.println(archivo);
+                    if(archivo.isDirectory())cola.addLast(archivo);
                 }
-            }
-
         }
     }
 
