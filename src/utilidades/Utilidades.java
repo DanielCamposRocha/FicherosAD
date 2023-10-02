@@ -45,4 +45,22 @@ public class Utilidades {
         }while(comprobacion==1);
         return lectura;
     }
+
+    public static float pedirFloat(String textoimpreso) {
+        int comprobacion;
+        float lectura = 0;
+
+        do{
+            comprobacion=0;
+            System.out.println(textoimpreso);
+            try{
+                Scanner scn=new Scanner(System.in);
+                lectura=scn.nextFloat();
+            }catch (RuntimeException e){
+                System.out.println("Recuerde por favor, debe introducir un numero float");
+                comprobacion=1;
+            }
+        }while(comprobacion==1);
+        return lectura;
+    }
 }
