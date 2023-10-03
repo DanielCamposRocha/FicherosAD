@@ -29,29 +29,6 @@ public class FiltrarNombre implements FilenameFilter {
         if(files != null)for (File archivo: files) System.out.println(archivo);
     }
 
-    public void filtrarTamano(String ruta,float minTamano){
-        ArrayList<File> listaArchivos=listarDirectorio(ruta);
-        for (File f:listaArchivos) {
-           if(f.length()>minTamano) System.out.println(f);
-        }
-    }
-
-
-    public static ArrayList<File> listarDirectorio(String ruta){
-        LinkedList<File> cola=new LinkedList<>();
-        ArrayList<File> archivos=new ArrayList<>();
-        File f= new File(ruta);
-        cola.addLast(f);
-        while (!cola.isEmpty()) {
-            File[] lista = cola.removeFirst().listFiles();
-            if(lista != null)
-                for (File archivo : lista) {
-                    archivos.add(archivo);
-                    if(archivo.isDirectory())cola.addLast(archivo);
-                }
-        }
-        return archivos;
-    }
 
     @Override
     public boolean accept(File dir, String name) {
