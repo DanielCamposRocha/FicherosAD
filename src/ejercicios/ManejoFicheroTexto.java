@@ -60,9 +60,7 @@ public class ManejoFicheroTexto {
                     fich.leer();
                     break;
                 }
-
             }
-
         } while(op!='0');
     }
 }
