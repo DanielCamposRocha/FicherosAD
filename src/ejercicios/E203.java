@@ -3,7 +3,7 @@ package ejercicios;
 import utilidades.Utilidades;
 
 import java.io.File;
-import java.io.IOException;
+
 
 /*Desarrolla un programa Java que permita crea un directorio vacío en la ruta dada. Podéis usar la siguiente ruta
  si estáis en Windows C:\\Users\\Antonio\\Descargas\\ficheros,

@@ -1,6 +1,7 @@
 package ejercicios;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /*Desarrolla un programa Java que permita:
 
@@ -20,26 +21,20 @@ public class E208 {
 
     private static void leer() {
         File f= new File("Empleados.dat");
-        try (DataInputStream dis=new DataInputStream(new FileInputStream(f))){
-            int i=1;
+        try (DataInputStream dis=new DataInputStream(Files.newInputStream(f.toPath()))){
             while(dis.available()!=0){
                 System.out.println(dis.readUTF());
-                i++;
             }
-        } catch (FileNotFoundException ex) {
-            System.out.println("Error con el fichero");
-        } catch (IOException ex) {
+        }catch (IOException ex) {
             System.out.println("Error con el fichero");
         }
     }
 
     private static void escribir() {
         File f= new File("Empleados.dat");
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(f))){
+        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(f.toPath()))){
             dos.writeUTF(texto);
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

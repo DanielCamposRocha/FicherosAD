@@ -3,6 +3,7 @@ package ejercicios;
 import utilidades.Utilidades;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /*Crear un fichero de texto de forma secuencial en el que vaya el siguiente texto:
 
@@ -14,31 +15,23 @@ public class E204 {
     static File f;
 
     public static void main(String[] args) {
-        File f=creaArchivo();
+        f=creaArchivo();
         escribir(f);
         leerArchivo(f);
     }
 
     private static void leerArchivo(File f) {
-        try (DataInputStream dis=new DataInputStream(new FileInputStream(f))){
-            int i=1;
-            while(dis.available()!=0){
-                System.out.println(dis.readUTF());
-                i++;
-            }
-        } catch (FileNotFoundException ex) {
-            System.out.println("Error con el fichero");
+        try (DataInputStream dis=new DataInputStream(Files.newInputStream(f.toPath()))){
+            while(dis.available()!=0){System.out.println(dis.readUTF());}
         } catch (IOException ex) {
             System.out.println("Error con el fichero");
         }
     }
 
     private static void escribir(File f) {
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(f))){
+        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(f.toPath()))){
             dos.writeUTF(prueba);
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

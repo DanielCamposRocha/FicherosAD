@@ -45,16 +45,16 @@ public class FicheroBinario {
     //copia el contenido del fichero en el fichero de destino.
     public static void copiar(FicheroBinario ficheroDestino){
         File f= new File("origen.bin");
-        String copia="";
+        StringBuilder crecio=new StringBuilder();
         try(FileInputStream fis=new FileInputStream(f)){
             int siguiente;
             while((siguiente=fis.read())!=-1){
-                copia=copia+(char)siguiente;
+                crecio.append((char)siguiente);
             }
         }catch(IOException e){
             System.out.println("ERROR al intentar escribir");
         }
-
+        String copia=String.valueOf(crecio);
         File co= ficheroDestino.archivo;
         try(FileOutputStream fos=new FileOutputStream(co)){
             byte[] flujoBytes=copia.getBytes(StandardCharsets.UTF_8);

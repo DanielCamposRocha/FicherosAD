@@ -14,7 +14,7 @@ public class FicheroTexto {
     private static File archivo;
 
     public FicheroTexto(File file) {
-        this.archivo=file;
+        archivo=file;
     }
 
     public static File getArchivo() {
@@ -22,7 +22,7 @@ public class FicheroTexto {
     }
     public void escribir(String texto){
 
-        try (FileWriter fw = new FileWriter(this.archivo.getAbsoluteFile())){
+        try (FileWriter fw = new FileWriter(archivo.getAbsoluteFile())){
            fw.write(texto);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -31,15 +31,12 @@ public class FicheroTexto {
 
     public void leer(){
         StringBuilder text=new StringBuilder();
-        try (FileReader fr = new FileReader(this.archivo);
+        try (FileReader fr = new FileReader(archivo);
         BufferedReader br = new BufferedReader(fr)) {
         String s;
-
         while ((s = br.readLine()) != null) {
             text.append(s);
         }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
