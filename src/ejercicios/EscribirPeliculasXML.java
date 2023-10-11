@@ -2,11 +2,7 @@ package ejercicios;
 
 import org.w3c.dom.*;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -20,12 +16,12 @@ llamado copiaPeliculas.xml, que sea una copia del fichero peliculas.xml*/
 public class EscribirPeliculasXML {
     public static void main(String[] args) {
         copiarXML("peliculas.xml");
-        E215.leerXmL("copiaPeliculas.xml");
+        E216.leerXmL("copiaPeliculas.xml");
     }
 
     private static void copiarXML(String s) {
         try{
-            Document doc = E215.leerXmL(s);
+            Document doc = E216.leerXmL(s);
             doc.getDocumentElement().normalize();
 
             Element rootElement = doc.getDocumentElement();
@@ -76,6 +72,10 @@ public class EscribirPeliculasXML {
 
 
             transformer.transform(source, result);
+            System.out.println("----------------------------");
+            System.out.println(" La copia ha finalizado");
+            System.out.println("----------------------------");
+            System.out.println();
 
 
         }catch (TransformerException tfe) {
